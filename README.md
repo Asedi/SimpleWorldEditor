@@ -5,8 +5,8 @@ Not usable yet
 
 
 ## Usage
-**Left-mouse-click:** Select first position
+**Left-mouse-click:** Select first position</br>
 **Second-mouse-click:** Select second position
 
 ## Commands
-**/superset <block-name>:** replaces selected area with desired blocks
+**/superset block-name:** replaces selected area with desired blocks
