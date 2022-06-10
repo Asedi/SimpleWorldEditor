@@ -19,22 +19,26 @@ function initdb() {
       );`);
 }
 
+var secondPosAntiFlood=0;
 mc.listen("onServerStarted", () => {
-    var secondPosAntiFlood=0;
     const cmd = mc.newCommand("superset", "Sets blocks to desired ones in the area", PermType.Any);
     cmd.mandatory("name", ParamType.RawText);
-    cmd.optional("testparam", ParamType.RawText);
     cmd.overload(["name"]);
     cmd.setCallback((_cmd, ori, out, res) => {
         const pl = ori.player;
-        mc.broadcast(`${res.name}`);
+        let arr=[];
         var successMSG='tellraw '+pl.realName+'{"rawtext":[{"text":"§b§l[SWE]§r§9§o Area filled with '+res.name+'"}]} ';
         mc.runcmd(`${successMSG}`);
-        /*}
-        else{
-            var noPosParamsMsg="tellraw "+pl.realName+'{"rawtext":[{"text":"§b§l[SWE]§r§9§o First or second position not set "}]} ';
-            mc.runcmd(`${noPosParamsMsg}`);
-        }*/
+        let stmt=session.prepare("SELECT * FROM sweUser WHERE player='"+pl.realName+"'");
+        let row = stmt.fetch();
+        arr[1] = row.pos1x;
+        arr[2] = row.pos1y;
+        arr[3] = row.pos1z;
+        arr[4] = row.pos2x;
+        arr[5] = row.pos2y;
+        arr[6] = row.pos2z;
+        mc.broadcast(`fill ${arr[1]} ${arr[2]} ${arr[3]} ${arr[4]} ${arr[5]} ${arr[6]} ${res.name}`);
+        mc.runcmd(`fill ${arr[1]} ${arr[2]} ${arr[3]} ${arr[4]} ${arr[5]} ${arr[6]} ${res.name}`)
         out.success("superset command executed successfully");
     });
     //LiteXLoader Dev Helper
