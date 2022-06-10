@@ -9,4 +9,4 @@ Not usable yet
 **Second-mouse-click:** Select second position
 
 ## Commands
-**/superset block-name:** replaces selected area with desired blocks
+**/sset block-name:** replaces selected area with desired blocks
